@@ -9,7 +9,7 @@ Python 3.8+
 ## Установка проекта 
 1. Выполнить клонирование репозитория homework_10.1 себе на компьютер:
 - В приветственном окне PyCharm нажать на "Get from VCS"
-- В строке "URL" втавить ссылку на репозиторий git clone git@github.com:multik-yw/homework_10.1.git
+- В строке "URL" втавить ссылку на репозиторий "git clone git@github.com:multik-yw/homework_10.1.git"
 - Нажать "Clone"
 
 ## Установка зависимостей 
