@@ -20,4 +20,3 @@ def get_date(date: str) -> str:
         raise ValueError("Неверный формат даты")
 
     return ".".join(new_data[::-1])
-
