@@ -20,12 +20,11 @@ def filter_by_currency(transaction_list: list[dict], currency_code: str = "USD")
 
 def transaction_descriptions(transactions):
     """Генератор, принимающий список словарей с транзакциями и возвращает описание каждой операции по очереди"""
-    try:
-        for description_operation in transactions:
-            yield description_operation.get('description')
-    except StopIteration:
-        if transactions == []:
-            return 'Нет транзакций'
+    if transactions == []:
+        return "Нет транзакций"
+
+    for description_operation in transactions:
+        yield description_operation.get('description')
 
 
 def card_number_generator(start, stop):

@@ -1,5 +1,3 @@
-from turtledemo.penrose import start
-
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 import pytest
 
@@ -51,10 +49,14 @@ def test_filter_by_currency(transactions, cod_curr: str = "USD"):
         "to": "Счет 11776614605963066702",
     }
 
+def test_filter_by_currency_error(transactions, cod_curr: str = "USD"):
+    if cod_curr not in ["USD"]:
+        assert "Код валюты не найден"
+
 
 @pytest.mark.parametrize('index, expected', [(0, 'Перевод организации'), (1, 'Перевод со счета на счет')])
 
-def test_transaction_descriptions_3(index, expected):
+def test_transaction_descriptions(index, expected):
     transactions = [
         {'description': 'Перевод организации'},
         {'description': 'Перевод со счета на счет'}
@@ -62,8 +64,18 @@ def test_transaction_descriptions_3(index, expected):
     descriptions = list(transaction_descriptions(transactions))
     assert descriptions[index] == expected
 
+def test_transaction_descriptions_error(transactions):
+    if transactions == []:
+        assert "Нет транзакций"
+
+
 
 @pytest.mark.parametrize("start, stop, expected", [(2, 3, ["0000 0000 0000 0002"])])
+
 def test_card_number_generator(start, stop, expected):
     assert list(card_number_generator(start, stop)) == expected
+
+
+
+
 
