@@ -1,5 +1,8 @@
+from typing import Union, Iterator
+
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 import pytest
+
 
 @pytest.fixture
 def transactions():
@@ -37,7 +40,7 @@ def transactions():
     ]
 
 
-def test_filter_by_currency(transactions, cod_curr: str = "USD"):
+def test_filter_by_currency(transactions:list[dict], cod_curr: str = "USD") -> None:
     generator = filter_by_currency(transactions, cod_curr)
     assert next(generator) == {
         "id": 939719570,
@@ -49,14 +52,21 @@ def test_filter_by_currency(transactions, cod_curr: str = "USD"):
         "to": "Счет 11776614605963066702",
     }
 
-def test_filter_by_currency_error(transactions, cod_curr: str = "USD"):
-    if cod_curr not in ["USD"]:
-        assert "Код валюты не найден"
+def test_filter_by_currency_error(transactions:list[dict]) -> None:
+    gen = filter_by_currency(transactions, '')
+    with pytest.raises(StopIteration, match='Код валюты не найден'):
+        next(gen)
+
+def test_filter_by_currency_empty(transactions:list[dict]) -> None:
+    gen = filter_by_currency([])
+    with pytest.raises(StopIteration, match='Список транзакции пуст'):
+        next(gen)
+
 
 
 @pytest.mark.parametrize('index, expected', [(0, 'Перевод организации'), (1, 'Перевод со счета на счет')])
 
-def test_transaction_descriptions(index, expected):
+def test_transaction_descriptions(index:int, expected:str) -> None:
     transactions = [
         {'description': 'Перевод организации'},
         {'description': 'Перевод со счета на счет'}
@@ -64,7 +74,7 @@ def test_transaction_descriptions(index, expected):
     descriptions = list(transaction_descriptions(transactions))
     assert descriptions[index] == expected
 
-def test_transaction_descriptions_error(transactions):
+def test_transaction_descriptions_error(transactions: list[dict]) -> None:
     if transactions == []:
         assert "Нет транзакций"
 
@@ -72,7 +82,7 @@ def test_transaction_descriptions_error(transactions):
 
 @pytest.mark.parametrize("start, stop, expected", [(2, 3, ["0000 0000 0000 0002"])])
 
-def test_card_number_generator(start, stop, expected):
+def test_card_number_generator(start :int, stop:int, expected:str)-> None:
     assert list(card_number_generator(start, stop)) == expected
 
 
