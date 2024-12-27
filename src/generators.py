@@ -1,4 +1,4 @@
-from typing import Union, Iterator
+from typing import Iterator, Union
 
 
 def filter_by_currency(transaction_list: list[dict], currency_code: str = "USD") -> Union[Iterator[dict], str]:
