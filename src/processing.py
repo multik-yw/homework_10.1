@@ -1,8 +1,8 @@
-def filters_by_state(list_of_date: list[dict[str, str | int]], state: str = "EXECUTED") -> list[dict[str, str | int]]:
+def filters_by_state(list_of_date: list[dict[str, str | int]], value: str = "EXECUTED") -> list[dict[str, str | int]]:
     """ Функция фильтрует данные по указанному значению """
     filtered_list = []
     for dictionary in list_of_date:
-        if dictionary.get("state") == state:
+        if dictionary.get("state") == value:
             filtered_list.append(dictionary)
     return filtered_list
 
