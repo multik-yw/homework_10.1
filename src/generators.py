@@ -14,8 +14,7 @@ def filter_by_currency(transaction_list: list[dict], currency_code: str = "USD")
     for transaction in transaction_list:
         if transaction["operationAmount"]["currency"]["code"] == currency_code:
             yield transaction
-    return iter ([])
-
+    return iter([])
 
 
 def transaction_descriptions(transactions: list[dict]) -> Union[Iterator[dict], str]:
@@ -28,12 +27,11 @@ def transaction_descriptions(transactions: list[dict]) -> Union[Iterator[dict], 
     return iter([])
 
 
-def card_number_generator(start:int, stop:int) -> Union[Iterator[dict], str]:
+def card_number_generator(start: int, stop: int) -> Union[Iterator[dict], str]:
     """Генератор, который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX"""
-    for number in range(start, stop):
-        card_number = str(number)
-        while len(card_number) < 16:
-            card_number = '0' + card_number
-        filtered_card_number = f"{card_number[0:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:17]}"
+    for number in range(start, stop + 1):
+        card_number = f"{number:016}"
+        filtered_card_number = f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
         yield filtered_card_number
-    return iter([])
+        return iter([])
+    return None

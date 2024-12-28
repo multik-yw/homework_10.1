@@ -80,5 +80,5 @@ def test_transaction_descriptions_error(transactions: list[dict]) -> None:
 
 
 @pytest.mark.parametrize("start, stop, expected", [(2, 3, ["0000 0000 0000 0002"])])
-def test_card_number_generator(start : int, stop: int, expected: str) -> None:
+def test_card_number_generator(start : int, stop: int, expected: list[str]) -> None:
     assert list(card_number_generator(start, stop)) == expected

@@ -1,5 +1,6 @@
-from src.masks import get_mask_cart_number, get_mask_account
 import pytest
+
+from src.masks import get_mask_account, get_mask_cart_number
 
 
 @pytest.mark.parametrize("cart_num, expected", [("1234567891234567", "1234 56** **** 4567"),

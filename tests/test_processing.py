@@ -1,5 +1,6 @@
-from src.processing import filters_by_state, sort_by_data
 import pytest
+
+from src.processing import filters_by_state, sort_by_data
 
 
 @pytest.fixture
@@ -49,5 +50,5 @@ def test_sort_by_data(state):
 
 
 @pytest.fixture
-def test_sort_by_data(list_of_date, sorted_list):
+def test_sort_by_data_normal(list_of_date, sorted_list):
     assert sort_by_data(list_of_date) == sorted_list
