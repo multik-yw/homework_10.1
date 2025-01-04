@@ -24,4 +24,3 @@ def log(filename: Optional[str] = None) -> Callable:
                     print(f"{func.__name__} error: {error.__class__.__name__}. Inputs: {args}, {kwargs}")
         return wrapper
     return decorator
-
