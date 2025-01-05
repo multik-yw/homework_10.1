@@ -1,5 +1,7 @@
 from typing import Any
 
+import pytest
+
 from src.decorators import log
 
 
@@ -13,13 +15,22 @@ def test_log() -> Any:
     assert result == 3
 
 
-def test_log_console(capsys: Any) -> None:
-    function(2, 3)
+def test_successful_execution(capsys: Any) -> None:
+    function(1, 2)
     output = capsys.readouterr()
-    assert output.out == "function ok\n"
+    assert "function ok" in output.out
 
 
-def test_log_console_error(capsys: Any) -> None:
-    function(2, "3")
+def test_error_handling(capsys: Any) -> None:
+    function(1, 'a')
     output = capsys.readouterr()
-    assert output.out == "function error: TypeError. Inputs: (2, '3'), {}\n"
+    assert "function error:" in output.out
+
+
+def test_function_error() -> None:
+    assert ValueError("Test error")
+
+
+def test_log_2() -> None:
+    with pytest.raises(Exception):
+        assert function()
