@@ -21,7 +21,7 @@ def test_successful_execution(capsys: Any) -> Any:
     assert "function ok" in output.out
 
 
-def test_error_handling(capsys: Any) -> Any:
+def test_log_error(capsys: Any) -> Any:
     function(1, 'a')
     output = capsys.readouterr()
     assert "function error:" in output.out
@@ -31,6 +31,6 @@ def test_function_error() -> None:
     assert ValueError("Test error")
 
 
-def test_log_2() -> None:
+def test_log_error_2() -> None:
     with pytest.raises(Exception):
         assert function()
