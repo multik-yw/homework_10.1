@@ -15,13 +15,13 @@ def test_log() -> Any:
     assert result == 3
 
 
-def test_successful_execution(capsys: Any) -> None:
+def test_successful_execution(capsys: Any) -> Any:
     function(1, 2)
     output = capsys.readouterr()
     assert "function ok" in output.out
 
 
-def test_error_handling(capsys: Any) -> None:
+def test_error_handling(capsys: Any) -> Any:
     function(1, 'a')
     output = capsys.readouterr()
     assert "function error:" in output.out
