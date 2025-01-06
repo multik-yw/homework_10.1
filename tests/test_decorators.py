@@ -34,3 +34,10 @@ def test_function_error() -> None:
 def test_log_error_2() -> None:
     with pytest.raises(Exception):
         assert function()
+
+
+def test_log_error_3(capsys: Any) -> Any:
+    @log(filename= None)
+    def function(x=1, y=2):
+        captured = capsys.readouterr()
+        assert captured.out == "2024-12-23 18:50:48,463 - function ок, result =3"
