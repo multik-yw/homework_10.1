@@ -41,3 +41,12 @@ def test_log_error_3(capsys: Any) -> Any:
     def function(x=1, y=2):
         captured = capsys.readouterr()
         assert captured.out == "2024-12-23 18:50:48,463 - function ок, result =3"
+
+def test_log_file() -> Any:
+    @log(filename = "mylog.txt")
+    def function(x,y):
+        return x == y
+
+    function(3,4)
+    with open("mylog.txt", "r", encoding="utf-8") as file:
+        assert file.readline() == "function ok\n"
