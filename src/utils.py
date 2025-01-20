@@ -10,9 +10,9 @@ def transactions_function(path_to_file: str) -> str | list[dict] | Any:
             try:
                 operations_data = json.load(file)
             except JSONDecodeError:
-                print("JSONDecodeError: Invalid JSON data.")
+                print("Неверные данные JSON.")
                 return []
     except FileNotFoundError:
-        print("FileNotFoundError: Файл не найден.")
+        print("Файл не найден.")
         return []
     return operations_data

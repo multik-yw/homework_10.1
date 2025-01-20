@@ -1,8 +1,10 @@
+from typing import Any
 from unittest.mock import mock_open, patch
 
 import pytest
 
 from src.utils import transactions_function
+
 
 @pytest.fixture
 def data_for_test_1() -> str:
@@ -25,7 +27,7 @@ def data_for_test_1() -> str:
 ]"""
 
 
-def test_transactions_function_1(data_for_test_1):
+def test_transactions_function_1(data_for_test_1: str) -> Any:
     mocked_open = mock_open(read_data=data_for_test_1)
     with patch("builtins.open", mocked_open):
         result = transactions_function("builtins.open")
@@ -42,23 +44,23 @@ def test_transactions_function_1(data_for_test_1):
         ]
 
 
-def test_transactions_function_2():
+def test_transactions_function_2() -> None:
     mocked_open = mock_open(read_data=None)
     with patch("builtins.open", mocked_open):
         result = transactions_function("builtins.open")
         assert result == []
 
 
-def test_transactions_function_3(capsys):
+def test_transactions_function_3(capsys) -> None:
     param = "[{'operationAmount': {'amount': '31957.58', 'currency': {'name': 'руб.', 'code': 'RUB'}}"
     mocked_open = mock_open(read_data=param)
     with patch("builtins.open", mocked_open):
         print(transactions_function("builtins.open"))
         captured = capsys.readouterr()
-        assert captured.out == "JSONDecodeError: Invalid JSON data.\n[]\n"
+        assert captured.out == "Неверные данные JSON.\n[]\n"
 
 
-def test_transactions_function_4():
+def test_transactions_function_4() -> None:
     param = "[{'operationAmount': {'amount': '31957.58', 'currency': {'name': 'руб.', 'code': 'RUB'}}"
     mocked_open = mock_open(read_data=param)
     with patch("builtins.open", mocked_open):
@@ -66,12 +68,12 @@ def test_transactions_function_4():
         assert result == []
 
 
-def test_transactions_function_5(capsys):
+def test_transactions_function_5(capsys) -> None:
     print(transactions_function("test.json"))
     captured = capsys.readouterr()
-    assert captured.out == "FileNotFoundError: Файл не найден.\n[]\n"
+    assert captured.out == "Файл не найден.\n[]\n"
 
 
-def test_transactions_function_6():
+def test_transactions_function_6() -> None:
     result = transactions_function("test.json")
     assert result == []
