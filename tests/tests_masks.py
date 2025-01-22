@@ -8,12 +8,12 @@ from src.masks import get_mask_account, get_mask_cart_number
                                                 ("5271639784256489", "5271 63** **** 6489"),
                                                 ("2378156489123457", "2378 15** **** 3457"),
                                                 ("9156472381946728", "9156 47** **** 6728")])
-def test_get_mask_cart_number(cart_num, expected):
+def test_get_mask_cart_number(cart_num: str, expected: str) -> None:
     assert get_mask_cart_number(cart_num) == expected
 
 
 @pytest.mark.parametrize("account, mask_account", [("12345678912345678912", "**8912"),
                                                    ("15489624865489566469", "**6469"),
                                                    ("54516494894597262645", "**2645")])
-def test_mask_account(account, mask_account):
+def test_mask_account(account: str, mask_account: str) -> None:
     assert get_mask_account(account) == mask_account
